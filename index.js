@@ -21,11 +21,19 @@ var Pet = function(petCell, $){
 function parsePets(body, $){
   var petCells = $('td').toArray();
   var petArray = petCells.map(function(obj){ return new Pet(obj, $);});
-  return {
-    statusCode: 200,
-    headers: { 'contentType' : "application/json", 'Access-Control-Allow-Origin': '*' },
-    body: JSON.stringify({type: "json" ,response:petArray})
-  };
+  if (petArray.length == 0 || petArray == undefined || petArray[0] == undefined || petArray[0].id == undefined || petArray[0].id == ""){
+    return {
+      statusCode: 200,
+      headers: { 'contentType' : "application/json", 'Access-Control-Allow-Origin': '*' },
+      body: body
+    };
+  } else {
+    return {
+      statusCode: 200,
+      headers: { 'contentType' : "application/json", 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({type: "json" ,response:petArray})
+    };
+  }
 }
 
 module.exports.handler = (event, context, callback) => {

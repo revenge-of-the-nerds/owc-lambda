@@ -24,7 +24,7 @@ function parsePets(body, $){
   return {
     statusCode: 200,
     headers: { 'contentType' : "application/json", 'Access-Control-Allow-Origin': '*' },
-    body: JSON.stringify(petArray)
+    body: JSON.stringify({type: "json" ,response:petArray})
   };
 }
 

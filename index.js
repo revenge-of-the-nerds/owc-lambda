@@ -42,8 +42,7 @@ var parseDetails = function($){
     photosArray.push(img.attr("href"))
   }
 
-
-  return {
+  var details =  {
     name: $("#lbName").text(),
     id: $("#lblID").text(),
     breed: $("#lbBreed").text(),
@@ -56,11 +55,27 @@ var parseDetails = function($){
     housetrained: $("#lbHousetrained").text(),
     noKids: noKids,
     intakeDate: $("#lblIntakeDate").text(),
-    apotionPrice: $("#lbPrice").text(),
+    adoptionPrice: $("#lbPrice").text(),
     story: $("#lbDescription").text(),
     images: photosArray,
     video: $("#lnkVideo").attr("href")
   };
+
+  var retHtml = true;
+  
+  for(var key in details){
+    if(details[key] != "" ) {
+      retHtml = retHtml && false;         
+    } else if (details[key] != []){
+      retHtml = retHtml && false;
+    } 
+  }
+
+  if(retHtml != true){
+    return details;
+  } else {
+    return $;
+  }
 }
   
 function parsePets(body, $){

@@ -23,7 +23,7 @@ function parsePets(body, $){
   var petArray = petCells.map(function(obj){ return new Pet(obj, $);});
   return {
     statusCode: 200,
-    headers: { contentType: "application/json" },
+    headers: { 'contentType' : "application/json", 'Access-Control-Allow-Origin': '*' },
     body: JSON.stringify(petArray)
   };
 }

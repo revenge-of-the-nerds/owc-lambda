@@ -45,6 +45,7 @@ var parseDetails = function($){
   var details =  {
     name: $("#lbName").text(),
     id: $("#lblID").text(),
+    species: $('#lblSpecies').text(),
     breed: $("#lbBreed").text(),
     age: $("#lbAge").text(),
     sex: $("#lbSex").text(),

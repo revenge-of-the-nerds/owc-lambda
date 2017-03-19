@@ -2,9 +2,10 @@
 
 var http = require('http');
 var cheerio = require('cheerio');
-// var url = 'http://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&onhold=A&orderby=ID&colnum=3&AuthKey=srx1fd0hqaa8hw78rv752eypne2t6bykvf0u8do2b2hvkkvrf7';
-
-
+var url = {
+  cats: 'http://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&onhold=A&orderby=ID&colnum=3&AuthKey=srx1fd0hqaa8hw78rv752eypne2t6bykvf0u8do2b2hvkkvrf7',
+  dogs: 'http://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Dog&sex=A&agegroup=All&onhold=A&orderby=ID&colnum=3&AuthKey=srx1fd0hqaa8hw78rv752eypne2t6bykvf0u8do2b2hvkkvrf7'
+}
 
 var Pet = function(petCell, $){
   var $petCell = $(petCell);
@@ -28,21 +29,10 @@ function parsePets(body, $){
 }
 
 module.exports.handler = (event, context, callback) => {
-  // console.log(event);
-  // console.log(event.path);
-  // console.log(event["path"]);
-  var url = "";
-  var cat_url = 'http://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&onhold=A&orderby=ID&colnum=3&AuthKey=srx1fd0hqaa8hw78rv752eypne2t6bykvf0u8do2b2hvkkvrf7';
-  var dog_url = 'http://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Dog&sex=A&agegroup=All&onhold=A&orderby=ID&colnum=3&AuthKey=srx1fd0hqaa8hw78rv752eypne2t6bykvf0u8do2b2hvkkvrf7';
 
-  if (event.path === '/pets/cats'){
-    url = cat_url;
-  } else if (event.path === '/pets/dogs'){
-    url = dog_url;
-  }
-  console.log();
+  var route = event.path.substring(6,10);
 
-  http.get(url, function(res){
+  http.get(url[route], function(res){
     var body = '';  
     res.on('data', function(data){
       body += data;
